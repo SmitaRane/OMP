@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Asmita Solutions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Login</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-input [(ngModel)]="credentials.primaryEmail" placeholder="E-mail"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input [(ngModel)]="credentials.password" placeholder="Password" type="password"></ion-input>
+
+        <ion-buttons slot="end">
+          <ion-button fill="clear" size="small" (click)="showPassword = !showPassword">
+            <ion-icon
+              slot="icon-only"
+              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'">
+            </ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+    <ion-button shape="round" size="small" (click)="login()">Login</ion-button>
+    <ion-button fill="clear" size="small" routerLink="/create-person">Register</ion-button>
+  </ion-card>
+
+  <app-response-dialog
+    *ngIf="showDialog"
+    [message]="dialogMessage"
+    [isSuccess]="dialogSuccess"
+    (closed)="onDialogClose()">
+  </app-response-dialog>
+</ion-content>

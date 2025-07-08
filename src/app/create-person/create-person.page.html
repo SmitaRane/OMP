@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-person-form
+    [isUpdateMode]="false"
+    [user]="user"
+    buttonLabel="Submit"
+    (formSubmit)="onFormSubmit($event)">
+  </app-person-form>
+
+  <app-response-dialog
+  *ngIf="showDialog"
+  [message]="dialogMessage"
+  [isSuccess]="dialogSuccess"
+  [successRedirectRoute]="'/login'"
+  (closed)="onDialogClose()">
+</app-response-dialog>
+</ion-content>

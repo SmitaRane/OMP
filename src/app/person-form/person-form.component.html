@@ -1,0 +1,101 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>User Details</ion-card-title>
+  </ion-card-header>
+
+
+  <ion-list>
+    <!-- First Name -->
+    <ion-item>
+      <ion-input [(ngModel)]="user.firstname" #firstname="ngModel" required placeholder="First Name"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="firstname.invalid && firstname.touched">
+      <small *ngIf="firstname.errors?.['required']">First Name is required</small>
+    </ion-text>
+
+    <!-- Last Name -->
+    <ion-item>
+      <ion-input [(ngModel)]="user.lastname" #lastname="ngModel" required placeholder="Last Name"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="lastname.invalid && lastname.touched">
+      <small *ngIf="lastname.errors?.['required']">Last Name is required</small>
+    </ion-text>
+
+    <!-- Primary Email -->
+    <ion-item>
+      <ion-input [(ngModel)]="user.primaryEmail" name="primaryEmail" #primaryEmail="ngModel" required type="email"
+        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Primary Email"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="primaryEmail.invalid && primaryEmail.touched">
+      <small *ngIf="primaryEmail.errors?.['required']">Primary Email is required</small>
+      <small *ngIf="primaryEmail.errors?.['pattern']">Primary Email format is invalid</small>
+    </ion-text>
+
+    <!-- Secondary Email -->
+    <ion-item>
+      <ion-input [(ngModel)]="user.secondaryEmail" name="secondaryEmail" #secondaryEmail="ngModel" required type="email"
+        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Secondary Email"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="secondaryEmail.invalid && secondaryEmail.touched">
+      <small *ngIf="secondaryEmail.errors?.['required']">Secondary Email is required</small>
+      <small *ngIf="secondaryEmail.errors?.['pattern']">Secondary Email format is invalid</small>
+    </ion-text>
+
+    <!-- Contact Number -->
+    <ion-item>
+      <ion-input [(ngModel)]="user.contact" #contact="ngModel" required pattern="^[0-9]{10}$"
+        placeholder="Contact"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="contact.invalid && contact.touched">
+      <small *ngIf="contact.errors?.['required']">Contact is required</small>
+      <small *ngIf="contact.errors?.['pattern']">Contact must be 10 digits</small>
+    </ion-text>
+
+    <!-- Education -->
+    <ion-item>
+      <ion-input [(ngModel)]="user.education" #education="ngModel" required placeholder="Education"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="education.invalid && education.touched">
+      <small *ngIf="education.errors?.['required']">Education is required</small>
+    </ion-text>
+
+    <!-- Password -->
+  <!-- Password Input -->
+    <ion-item [style.display]="isUpdateMode ? 'none' : ''">
+      <ion-input
+        [(ngModel)]="user.password"
+        name="password"
+        #password="ngModel"
+        required
+        type="password"
+        placeholder="Password"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
+      ></ion-input>
+    </ion-item>
+
+  <!-- Password Validation -->
+    <ion-text color="danger" *ngIf="password.invalid && password.touched">
+      <small *ngIf="password.errors?.['required']">Password is required</small>
+      <small *ngIf="password.errors?.['pattern']">
+        Password must be at least 8 characters long and include one uppercase letter,
+        one lowercase letter, one number, and one special character.
+      </small>
+    </ion-text>
+
+  </ion-list>
+
+  <ion-button [disabled]="
+    firstname.invalid ||
+    lastname.invalid ||
+    primaryEmail.invalid ||
+    secondaryEmail.invalid ||
+    contact.invalid ||
+    education.invalid ||
+    (!isUpdateMode && password.invalid)"
+    (click)="emitForm()">
+    {{ buttonLabel }}
+  </ion-button>
+
+  <ion-button fill="clear" size="small" routerLink="/login">Login</ion-button>
+  
+</ion-card>

@@ -1,0 +1,15 @@
+<div class="dialog-backdrop">
+  <ion-card class="dialog-card">
+    <ion-card-header [color]="isSuccess ? 'success' : 'danger'">
+      <ion-card-title>{{ isSuccess ? 'Success' : 'Error' }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-text color="dark">
+        <p class="message-text">{{ message }}</p>
+      </ion-text>
+    </ion-card-content>
+
+    <ion-button expand="block" color="primary" (click)="onClose()">OK</ion-button>
+  </ion-card>
+</div>
