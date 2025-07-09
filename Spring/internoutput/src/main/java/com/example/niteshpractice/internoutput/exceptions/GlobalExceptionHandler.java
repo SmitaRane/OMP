@@ -1,5 +1,7 @@
 package com.example.niteshpractice.internoutput.exceptions;
 
+import com.example.niteshpractice.internoutput.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +13,17 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    private ResponseEntity<ApiResponse<Object>> buildErrorResponse(Exception ex, HttpStatus status, HttpServletRequest request) {
+        ApiResponse<Object> response = new ApiResponse<>(
+                false,
+                status.value(),
+                ex.getMessage(),
+                request.getRequestURI(),
+                null
+        );
+        return new ResponseEntity<>(response, status);
+    }
 
     // Handles @Valid validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -27,29 +40,48 @@ public class GlobalExceptionHandler {
     // === Existing Custom Exceptions ===
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<String> handleEmailExists(EmailAlreadyExistsException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<Object>> handleEmailExists(EmailAlreadyExistsException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(EmailNotFoundException.class)
-    public ResponseEntity<String> handleEmailNotFound(EmailNotFoundException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<Object>> handleEmailNotFound(EmailNotFoundException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(InvalidPasswordException.class)
-    public ResponseEntity<String> handleInvalidPassword(InvalidPasswordException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<Object>> handleInvalidPassword(InvalidPasswordException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
     }
 
-    // === Newly Added Required Field Exceptions ===
     @ExceptionHandler(UuidNotFoundException.class)
-    public ResponseEntity<String> handleUuidNotFound(UuidNotFoundException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<Object>> handleUuidNotFound(UuidNotFoundException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(RequiredException.class)
-    public ResponseEntity<String> handleRequiredName(RequiredException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<Object>> handleRequiredName(RequiredException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(WeakPasswordException.class)
+    public ResponseEntity<ApiResponse<Object>> handleWeakPassword(WeakPasswordException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(InvalidContactException.class)
+    public ResponseEntity<ApiResponse<Object>> handleInvalidPhone(InvalidContactException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(InvalidEmailException.class)
+    public ResponseEntity<ApiResponse<Object>> handleInvalidEmail(InvalidEmailException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(InvalidStatusException.class)
+    public ResponseEntity<ApiResponse<Object>> handleInvalidStatus(InvalidStatusException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
     }
 
 //    @ExceptionHandler(RequiredEmailException.class)
@@ -71,26 +103,4 @@ public class GlobalExceptionHandler {
 //    public ResponseEntity<String> handleRequiredEducation(RequiredEducationException ex) {
 //        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 //    }
-
-    @ExceptionHandler(WeakPasswordException.class)
-    public ResponseEntity<String> handleWeakPassword(WeakPasswordException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    // === Newly Added Format Exceptions ===
-
-    @ExceptionHandler(InvalidContactException.class)
-    public ResponseEntity<String> handleInvalidPhone(InvalidContactException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidEmailException.class)
-    public ResponseEntity<String> handleInvalidEmail(InvalidEmailException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidStatusException.class)
-    public ResponseEntity<String> handleInvalidEmail(InvalidStatusException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 }

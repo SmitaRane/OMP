@@ -27,7 +27,7 @@ public class RequiredAndInvalidValidator {
             throw new RequiredException("Primary Email is required");
         }
 
-        if (!personDTO.getPrimaryEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$")) {
+        if (!personDTO.getPrimaryEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
             throw new InvalidEmailException("Primary Email format is invalid");
         }
 
@@ -35,7 +35,7 @@ public class RequiredAndInvalidValidator {
             throw new RequiredException("Secondary Email is required");
         }
 
-        if (!personDTO.getSecondaryEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$")) {
+        if (!personDTO.getSecondaryEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
             throw new InvalidEmailException("Secondary Email format is invalid");
         }
 
