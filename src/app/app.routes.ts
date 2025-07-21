@@ -11,11 +11,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'create-person',
-    loadComponent: () => import('./create-person/create-person.page').then( m => m.CreatePersonPage)
+    path: 'person',
+    loadComponent: () => import('./person/person.page').then( m => m.PersonPage)
   },
   {
-    path: 'person-dashboard',
-    loadComponent: () => import('./person-dashboard/person-dashboard.page').then( m => m.PersonDashboardPage)
+    path: 'person-list',
+    loadComponent: () => import('./person-list/person-list.page').then( m => m.PersonListPage)
   },
 ];

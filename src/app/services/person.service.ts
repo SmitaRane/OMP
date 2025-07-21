@@ -14,8 +14,8 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
   // 1. Get all employees
-  getAllEmployees(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl);
+  getAllEmployees(): Observable<ApiResponse<User[]>> {
+    return this.http.get<ApiResponse<User[]>>(this.baseUrl);
   }
 
   // 2. Create new user
@@ -24,9 +24,10 @@ export class PersonService {
   }
 
   // 3. Delete user by ID
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  deleteUser(uuid: string): Observable<ApiResponse<null>> {
+    return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/${uuid}`);
   }
+
 
   // 4. Login user
   login(user: { primaryEmail: string; password: string }): Observable<ApiResponse<User>> {

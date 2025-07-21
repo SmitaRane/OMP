@@ -51,7 +51,7 @@ export class LoginPage {
     this.showDialog = false;
 
     if (this.dialogSuccess) {
-      this.router.navigate(['/person-dashboard'], {
+      this.router.navigate(['/person'], {
         state: { user: this.user }
       });
     }
