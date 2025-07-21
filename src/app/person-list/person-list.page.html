@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Person List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!isLoading; else loading">
+  <ion-card *ngIf="persons.length > 0; else noData">
+    <ion-card-header>
+      <ion-card-title>Registered Persons</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="table-header">
+          <ion-col><strong>First Name</strong></ion-col>
+          <ion-col><strong>Last Name</strong></ion-col>
+          <ion-col><strong>Primary Email</strong></ion-col>
+          <ion-col><strong>Secondary Email</strong></ion-col>
+          <ion-col><strong>Contact</strong></ion-col>
+          <ion-col><strong>Actions</strong></ion-col>
+        </ion-row>
+
+        <ion-row *ngFor="let person of persons">
+          <ion-col>{{ person.firstname }}</ion-col>
+          <ion-col>{{ person.lastname }}</ion-col>
+          <ion-col>{{ person.primaryEmail }}</ion-col>
+          <ion-col>{{ person.secondaryEmail }}</ion-col>
+          <ion-col>{{ person.contact }}</ion-col>
+          <ion-col>
+            <ion-button size="small" fill="outline" color="primary" (click)="editPerson(person)">
+              Edit
+            </ion-button>
+            <ion-button size="small" fill="outline" color="danger" (click)="deletePerson(person)">
+              Delete
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ng-template #noData>
+    <ion-text color="medium" class="ion-padding">No persons found.</ion-text>
+  </ng-template>
+
+    <app-response-dialog
+    *ngIf="showDialog"
+    [message]="dialogMessage"
+    [isSuccess]="dialogSuccess"
+    (closed)="onDialogClose()">
+  </app-response-dialog>
+
+</ion-content>
+
+<ng-template #loading>
+  <ion-spinner name="crescent" class="ion-padding"></ion-spinner>
+</ng-template>
